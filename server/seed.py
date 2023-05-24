@@ -3,11 +3,13 @@
 from random import randint, choice as rc
 
 from faker import Faker
+from faker_food import FoodProvider
 
 from app import app
 from models import db, Bakery, BakedGood
 
 fake = Faker()
+fake.add_provider(FoodProvider)
 
 with app.app_context():
 
@@ -27,9 +29,9 @@ with app.app_context():
     names = []
     for i in range(200):
 
-        name = fake.first_name()
+        name = fake.dish()
         while name in names:
-            name = fake.first_name()
+            name = fake.dish()
         names.append(name)
 
         bg = BakedGood(
